@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import AboutUs from './AboutUs';
+import './App.css';
+import ProductList from './ProductList';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activePage, setActivePage] = useState('landing');
+
+  const handleGetStarted = () => {
+
+    setActivePage('product_list');
+    console.log(`Current page: ${activePage}`);
+  };
+
+  const handlePageChange = (pagename) => {
+
+    setActivePage(pagename);
+    console.log(`Current page: ${activePage}`);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
+      <header className={`first_page ${activePage === 'landing' ? 'visible' : ''}`}>
+        <div className="main_event">
+          <div className="first_page_name_btn">
+            <h1 className="company_heading">Welcome To<br></br>Paradise Nursery</h1>
+            <p className="company_sentence"> Where Green Meets Serenity</p>
+            <div className="getstarted_btn">
+              <button onClick={() => handlePageChange('product_list')} className="get-started-btn">
+                Get Started
+              </button>
+            </div>
+          </div>
+          <div className="aboutus_main">
+            <AboutUs />
+          </div>
+
+
+        </div>
+      </header>
+
+      {activePage === 'product_list' && (<div className={`product-list-container ${activePage === 'product_list' ? 'visible' : ''}`}>
+        <ProductList handlePageChange={handlePageChange} />
+      </div>)}
+
     </>
-  )
+  );
 }
 
 export default App
