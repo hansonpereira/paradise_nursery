@@ -107,7 +107,7 @@ export const plantSlice = createSlice({
             if (state[index]) {
                 state[index].quantity++;
             }
-            console.log(state[index].name + ' = ' + state[index].quantity);
+
         },
         decrementQuantity: (state, action) => {
             const { payload: index } = action;

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import './ProductList.css';
+import Cart from './Cart';
 import { decrementQuantity, incrementQuantity } from "./plantSlice";
+import Product from './Product';
+import './ProductList.css';
 
-export default function ProductList({ handlePageChange }) {
+const ProductList = ({ handlePageChange }) => {
     const [showCart, setshowCart] = useState(false);
     const plantItems = useSelector((state) => state.plant);
     const dispatch = useDispatch();
@@ -15,11 +17,12 @@ export default function ProductList({ handlePageChange }) {
     const handleAddToCart = (index) => {
         dispatch(incrementQuantity(index));
     }
-    const groupedPlants = plantItems.reduce((acc, plant) => {
+    const groupedPlants = plantItems.reduce((acc, plant, index) => {
         if (!acc[plant.category]) {
             acc[plant.category] = [];
         }
-        acc[plant.category].push(plant);
+        acc[plant.category].push({ ...plant, actualIndex: index }); // Add actual index
+        console.log("grouped");
         return acc;
     }, {});
 
@@ -39,69 +42,46 @@ export default function ProductList({ handlePageChange }) {
     return (
         <>
             <navbar className="navbar_nursery">
-                <div className='navbar_logo'>
+                {/* Left Section - Profile Image & Company Info */}
+                <div className="navbar_logo">
                     <div>
-                        <img style={{ width: '75px', height: '75px', padding: '10px' }}
+                        <img
+                            style={{ width: '75px', height: '75px', padding: '10px', borderRadius: '50%' }}
                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlLJhMATCi-q5yaz_noMXS0i5yVliHOEqGVA&s"
-                            alt="logo"
-                            onClick={() => handlePageChange('landing')} />
+                            alt="profile"
+                            onClick={() => handlePageChange('landing')}
+                        />
                     </div>
-                    <div className='company_logo' onClick={() => handlePageChange('landing')}>Paradise Nursery</div>
+                    <div className="company_info" onClick={() => handlePageChange('landing')}>
+                        <div className="company_logo">Paradise Nursery</div>
+                        <div className="slogan">Where Green Meets Serenity</div>
+                    </div>
                 </div>
-                <div className="left_navbar">
-                    <div className="nav_links">
-                        <h4>Plant</h4>
-                    </div>
-                    <div className="nav_links">
-                        <a href="#" onClick={() => setshowCart(!showCart)} >
-                            <img src='https://cdn.pixabay.com/photo/2014/06/19/00/59/shopping-cart-371979_1280.png' alt='Cart'
-                                width={50} height={50}></img>{cartCount}</a>
-                    </div>
+
+                {/* Center Section - Page Title */}
+                <div className="page_heading">
+                    <h4>{showCart ? 'Cart' : 'Plant'}</h4>
+                </div>
+
+                {/* Right Section - Cart */}
+                <div className="cart_link">
+                    <a href="#" className='cart-link-a' onClick={() => setshowCart(!showCart)}>
+                        {cartCount}
+                    </a>
                 </div>
             </navbar>
 
-            <div className="main_container">
-
-
-                <div className="items-information">
-                    <div id="plant" className="plant_container container_main">
-
-
-                        <div>
-                            {Object.keys(groupedPlants).map((category, catIndex) => (
-                                <div key={catIndex}>
-                                    <h2 className="category">{category}</h2>
-                                    <div className="venue_selection">
-                                        {groupedPlants[category].map((item, index) => (
-                                            <div className="venue_main" key={index}>
-                                                <div className={item.sale ? "sale-tag" : "sale-tag-no"}>
-                                                    {item.sale ? "SALE" : ""}
-                                                </div>
-                                                <div className="boldtext">{item.name}</div>
-                                                <div className="img">
-                                                    <img src={item.img} alt={item.name} />
-                                                </div>
-                                                <div className="costtext">${item.cost}</div>
-                                                <div className="infotext">{item.info}</div>
-                                                <button
-                                                    className={item.quantity > 0 ? "btn-warning btn-disabled" : "btn-warning btn-plus"}
-                                                    onClick={() => handleAddToCart(index)}
-                                                >
-                                                    Add to Cart
-                                                </button>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        <div className="total_cost">Total Cost: ${0}</div>
-                    </div>
-
-
-                </div>
+            {!showCart && <div className="main_container">
+                <Product />
             </div>
+            }
+
+            {showCart && <div className="main_container">
+                <Cart />
+            </div>
+            }
         </>
     )
-}
+};
+
+export default ProductList;
