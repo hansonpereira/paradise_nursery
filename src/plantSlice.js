@@ -10,7 +10,8 @@ export const plantSlice = createSlice({
             cost: 15,
             img: "https://backgardener.com/wp-content/uploads/2025/01/cropped-backgardener_logo_min.jpg",
             quantity: 0,
-            info: "Aloe Vera is a succulent plant known for its medicinal and skincare benefits."
+            info: "Aloe Vera is a succulent plant known for its medicinal and skincare benefits.",
+            sale: true
 
         },
         {
@@ -41,7 +42,7 @@ export const plantSlice = createSlice({
             sale: true
         },
         {
-            category: "Aromatic Fragment Plant",
+            category: "Air Purifying Plants",
             name: "Jade Plant",
             cost: 18,
             img: "https://backgardener.com/wp-content/uploads/2025/01/cropped-backgardener_logo_min.jpg",
@@ -50,7 +51,7 @@ export const plantSlice = createSlice({
             sale: false
         },
         {
-            category: "Aromatic Fragment Plant",
+            category: "Air Purifying Plants",
             name: "Areca Palm",
             cost: 30,
             img: "https://backgardener.com/wp-content/uploads/2025/01/cropped-backgardener_logo_min.jpg",
@@ -106,6 +107,7 @@ export const plantSlice = createSlice({
             if (state[index]) {
                 state[index].quantity++;
             }
+            console.log(state[index].name + ' = ' + state[index].quantity);
         },
         decrementQuantity: (state, action) => {
             const { payload: index } = action;

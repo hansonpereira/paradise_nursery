@@ -13,6 +13,19 @@
     font-size: 24px;
   }
   
+  
+.category {
+    text-align: center;  /* Centers the text horizontally */
+    font-size: 40px;     /* Adjust size as needed */
+    font-weight: bold;   /* Make it bold for emphasis */
+    margin: 20px 0;      /* Add some space above and below */
+    background-color: transparent; /* Optional: Light background */
+    border-top: 2px solid #908787; /* Border only on top */
+    border-bottom: 2px solid #908787; /* Border only on bottom */
+    display: inline-block; /* Adjusts width to fit content */
+}
+
+
   .venue_selection,.addons_selection , .meal_selection {
     display: flex;
     flex-wrap: wrap;
@@ -405,12 +418,5 @@
         gap: 0;
     }
 
-  .category-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 20px 0;
-    color: green;
-    text-align: center;
-    width: 1000px
-}
+
 }

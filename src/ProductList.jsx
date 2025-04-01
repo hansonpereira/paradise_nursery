@@ -1,19 +1,40 @@
 import React, { useState } from 'react';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import './ProductList.css';
-//import { incrementQuantity, decrementQuantity } from "./plantSlice";
+import { decrementQuantity, incrementQuantity } from "./plantSlice";
 
 export default function ProductList({ handlePageChange }) {
     const [showCart, setshowCart] = useState(false);
     const plantItems = useSelector((state) => state.plant);
+    const dispatch = useDispatch();
 
     const handleRemoveFromCart = (index) => {
-        console.log(index);
+        dispatch(decrementQuantity(index));
     }
 
     const handleAddToCart = (index) => {
-        console.log(index);
+        dispatch(incrementQuantity(index));
     }
+    const groupedPlants = plantItems.reduce((acc, plant) => {
+        if (!acc[plant.category]) {
+            acc[plant.category] = [];
+        }
+        acc[plant.category].push(plant);
+        return acc;
+    }, {});
+
+    const getCartCount = () => {
+        let cost = 0
+        plantItems.forEach((item) => {
+            if (item.quantity > 0) {
+                cost += item.quantity;
+            }
+        });
+        return cost;
+    }
+
+    const cartCount = getCartCount();
+    console.log('Total Cart: ' + cartCount);
 
     return (
         <>
@@ -34,7 +55,7 @@ export default function ProductList({ handlePageChange }) {
                     <div className="nav_links">
                         <a href="#" onClick={() => setshowCart(!showCart)} >
                             <img src='https://cdn.pixabay.com/photo/2014/06/19/00/59/shopping-cart-371979_1280.png' alt='Cart'
-                                width={50} height={50}></img>0</a>
+                                width={50} height={50}></img>{cartCount}</a>
                     </div>
                 </div>
             </navbar>
@@ -45,31 +66,37 @@ export default function ProductList({ handlePageChange }) {
                 <div className="items-information">
                     <div id="venue" className="venue_container container_main">
 
-                        <div className="venue_selection">
+                        {/*    <div className="venue_selection"> */}
 
-                            {plantItems.map((item, index) => (
-                                <>
-
-                                    <div className="venue_main" key={index}>
-                                        <div className={item.sale ? " sale-tag" : "sale-tag-no"}>{item.sale ? 'SALE' : ''}</div>
-                                        <div className="boldtext">{item.name}</div>
-                                        <div className="img">
-                                            <img src={item.img} alt={item.name} />
-                                        </div>
-
-                                        <div className='costtext'>${item.cost}</div>
-                                        <div className='infotext'>{item.info} </div>
-                                        <button
-                                            className={item.quantity > 0 ? " btn-warning btn-disabled" : "btn-warning btn-plus"}
-                                            onClick={() => handleRemoveFromCart(index)}
-                                        >
-                                            Add to Cart
-                                        </button>
-
+                        <div>
+                            {Object.keys(groupedPlants).map((category, catIndex) => (
+                                <div key={catIndex}>
+                                    <h2 className="category">{category}</h2>
+                                    <div className="venue_selection">
+                                        {groupedPlants[category].map((item, index) => (
+                                            <div className="venue_main" key={index}>
+                                                <div className={item.sale ? "sale-tag" : "sale-tag-no"}>
+                                                    {item.sale ? "SALE" : ""}
+                                                </div>
+                                                <div className="boldtext">{item.name}</div>
+                                                <div className="img">
+                                                    <img src={item.img} alt={item.name} />
+                                                </div>
+                                                <div className="costtext">${item.cost}</div>
+                                                <div className="infotext">{item.info}</div>
+                                                <button
+                                                    className={item.quantity > 0 ? "btn-warning btn-disabled" : "btn-warning btn-plus"}
+                                                    onClick={() => handleAddToCart(index)}
+                                                >
+                                                    Add to Cart
+                                                </button>
+                                            </div>
+                                        ))}
                                     </div>
-                                </>
+                                </div>
                             ))}
                         </div>
+                        {/*   </div> */}
                         <div className="total_cost">Total Cost: ${0}</div>
                     </div>
 
