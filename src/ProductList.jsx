@@ -64,9 +64,8 @@ export default function ProductList({ handlePageChange }) {
 
 
                 <div className="items-information">
-                    <div id="venue" className="venue_container container_main">
+                    <div id="plant" className="plant_container container_main">
 
-                        {/*    <div className="venue_selection"> */}
 
                         <div>
                             {Object.keys(groupedPlants).map((category, catIndex) => (
@@ -96,7 +95,7 @@ export default function ProductList({ handlePageChange }) {
                                 </div>
                             ))}
                         </div>
-                        {/*   </div> */}
+
                         <div className="total_cost">Total Cost: ${0}</div>
                     </div>
 
