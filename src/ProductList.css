@@ -66,12 +66,73 @@
     color: #333;
   }
 
+  
+  .cart_main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+
+
+    background-color: rgb(236, 224, 224);
+    color: #333;
+    width: 400px;
+    border: 5px solid lightgrey;
+   
+  }
+
+    .cart_main_first {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+ 
+    border-radius: 2px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    color: #333;
+    width: 400px;
+
+  }
+
+
+  .cart_main_second {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-radius: 2px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    color: #333;
+    width: 400px;
+   
+  }
+
   .boldtext {
     font-size: 30px;
     color: #333;
     font-weight: 500;
   }
 
+    .totaltext {
+    font-size: 25px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  
+  .subtotaltext {
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+  }
+
+
+  
   .costtext {
     font-size: 30px;
     color: #e48181;
@@ -257,6 +318,35 @@
 
 }
 
+  .delete_btn {
+    background-color: orange;
+    color: white;
+    height: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 5px 10px;
+  
+  }
+
+  .continue_shop_btn {
+    background-color: green;
+    color: white;
+    width: 250px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: normal;
+    border-radius: 5px;
+    padding: 5px 
+  }
+
+  .cart-addl-btn-container {
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+  }
 .sale-tag-no {
     position: absolute;
     top: 1px;
@@ -269,6 +359,19 @@
     text-transform: uppercase;
 
 }
+
+.cart-btn-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(235, 229, 229);
+    color: black;
+    border: none;
+    width: 30px;
+    height: 30px;
+     border-radius: 5px;
+    cursor: pointer;
+  }
 
   .input-container .input_box5{
     height: 40px;

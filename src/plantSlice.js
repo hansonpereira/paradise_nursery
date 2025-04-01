@@ -115,9 +115,21 @@ export const plantSlice = createSlice({
                 state[index].quantity--;
             }
         },
+        removeQuantity: (state, action) => {
+            const { payload: index } = action;
+            if (state[index]) {
+                state[index].quantity = 0;
+            }
+        },
+        initialiseOrder: (state, action) => {
+            for (let i = 0; i < state.length; i++) {
+                state[i].quantity = 0;
+            }
+
+        },
     },
 });
 
-export const { incrementQuantity, decrementQuantity } = plantSlice.actions;
+export const { incrementQuantity, decrementQuantity, removeQuantity, initialiseOrder } = plantSlice.actions;
 
 export default plantSlice.reducer;
