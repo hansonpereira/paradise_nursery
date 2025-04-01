@@ -86,7 +86,7 @@ const Cart = ({ activateProductList, toggleCheckout }) => {
                                 const total = item.quantity * item.cost;
                                 return (
                                     <div className="cart_main_first" key={index}>
-                                        <div className="img">
+                                        <div className="cart-img">
                                             <img src={item.img} alt={item.name} />
                                         </div>
                                         <div className="cart_main_second">

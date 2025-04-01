@@ -135,7 +135,7 @@ const ProductList = ({ handlePageChange }) => {
 
                 {/* Center Section - Page Title */}
                 <div className="page_heading">
-                    <h4>{showCart ? 'Cart' : 'Plant'}</h4>
+                    <h4>{!showCart ? 'Plants' : showCheckout ? 'Checkout' : 'Cart'}</h4>
                 </div>
 
                 {/* Right Section - Cart */}
